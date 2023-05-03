@@ -3,6 +3,14 @@
 // in the html.
 $(function () {
 
+  // adds eventlistener for clicks to every saveBtn
+  // clicking save saves textarea content to local storage using timeblock id
+  $( '.saveBtn' ).on( 'click', function() {
+    var block = this.parentElement.id;
+    var content = this.previousElementSibling.value;
+    localStorage.setItem(block, content);
+  });
+
   // loops through timeblocks and colors them based on current time
   function colorTimeBlocks() {
     $( '.time-block' ).each(function() {
