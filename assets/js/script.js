@@ -24,6 +24,12 @@ $(function () {
       }
     });
   }
+
+  // for each textarea box, retrieve stored content using corresponding timeblock id
+  $( '.description' ).each(function() {
+    var savedContent = localStorage.getItem(this.parentElement.id);
+    this.value = savedContent;
+  });
   
   // sets interval to run colorTimeBlocks and display current date in header every 60 seconds to account for time changes
   setInterval(() => {
