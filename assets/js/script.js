@@ -26,16 +26,27 @@ $(function () {
   }
 
   // for each textarea box, retrieve stored content using corresponding timeblock id
-  $( '.description' ).each(function() {
-    var savedContent = localStorage.getItem(this.parentElement.id);
-    this.value = savedContent;
-  });
+  function getLocalStorage() {
+    $( '.description' ).each(function() {
+      var savedContent = localStorage.getItem(this.parentElement.id);
+      this.value = savedContent;
+    });
+  }
   
   // sets interval to run colorTimeBlocks and display current date in header every 60 seconds to account for time changes
-  setInterval(() => {
-    colorTimeBlocks();
-    $( '#currentDay' ).text(dayjs().format('dddd - MMMM D, YYYY')); // displays current date and refreshes every min
-  }, 60000); // re-color time blocks every minute (checks for hour changes)
-  colorTimeBlocks(); // initialize time blocks
-  $( '#currentDay' ).text(dayjs().format('dddd - MMMM D, YYYY')); // init current date
+  function checkTime() {
+    setInterval(() => {
+      colorTimeBlocks();
+      $( '#currentDay' ).text(dayjs().format('dddd - MMMM D, YYYY')); // displays current date and refreshes every min
+    }, 60000); // re-color time blocks every minute (checks for hour changes)
+  }
+
+  function init() {
+    $( '#currentDay' ).text(dayjs().format('dddd - MMMM D, YYYY')); // displays current date
+    colorTimeBlocks(); // style time blocks
+    checkTime(); // runs interval time checker
+    getLocalStorage(); // displays stored values in text boxes if there are any
+  }
+
+  init(); // initialize :)
 });
